@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英超直播 · 简明观赛指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f4f6f8;
+            color: #1e2a3a;
+            line-height: 1.7;
+            padding: 2rem 1.2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .page {
+            max-width: 960px;
+            width: 100%;
+        }
+        /* hero 横幅 */
+        .hero {
+            background: linear-gradient(135deg, #eef1f5 0%, #e3e9f0 100%);
+            border-radius: 28px;
+            padding: 2.2rem 2.5rem;
+            margin-bottom: 2.4rem;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03), 0 1px 4px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.2s;
+        }
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #102a3e;
+            margin-bottom: 0.5rem;
+        }
+        .hero .sub {
+            font-size: 1.15rem;
+            color: #3a4e62;
+            font-weight: 360;
+            max-width: 75%;
+            border-left: 3px solid #809bb3;
+            padding-left: 1.2rem;
+            margin-top: 0.3rem;
+        }
+        /* 背景说明卡 */
+        .bg-card {
+            background: #ffffffdd;
+            backdrop-filter: blur(1px);
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 1.8rem 2.2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #e3e9f0;
+            box-shadow: 0 8px 20px -6px rgba(0, 20, 30, 0.06);
+            transition: box-shadow 0.2s;
+        }
+        .bg-card:hover {
+            box-shadow: 0 10px 26px -8px rgba(0, 0, 0, 0.08);
+        }
+        .bg-card h2 {
+            font-size: 1.5rem;
+            font-weight: 480;
+            color: #1e3b4f;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .bg-card p {
+            margin-bottom: 0.75rem;
+            font-weight: 380;
+        }
+        .bg-card p:last-child {
+            margin-bottom: 0;
+        }
+        .bg-card .small-note {
+            font-size: 0.9rem;
+            color: #5a6f82;
+            background: #f0f4f9;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            margin-top: 0.6rem;
+        }
+        /* 三段介绍卡片组 */
+        .features-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .feature-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 1.8rem 1.8rem 2rem;
+            flex: 1 1 200px;
+            min-width: 200px;
+            border: 1px solid #e3e9f0;
+            box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.02);
+            transition: transform 0.15s, box-shadow 0.2s;
+        }
+        .feature-card:hover {
+            box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.07);
+            transform: translateY(-2px);
+        }
+        .feature-card h3 {
+            font-weight: 500;
+            font-size: 1.25rem;
+            color: #1a3345;
+            margin-bottom: 0.7rem;
+            letter-spacing: -0.01em;
+        }
+        .feature-card p {
+            color: #2e4458;
+            font-size: 0.95rem;
+        }
+        .feature-card .tag {
+            display: inline-block;
+            margin-top: 0.9rem;
+            font-size: 0.75rem;
+            background: #eaf0f6;
+            padding: 0.2rem 0.9rem;
+            border-radius: 20px;
+            color: #2b4b62;
+        }
+        /* 提示 & FAQ 摘要 */
+        .tip-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .tip-block {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 1.5rem 2rem;
+            flex: 2 1 280px;
+            border: 1px solid #dfe6ed;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .tip-block h4 {
+            font-weight: 470;
+            font-size: 1.2rem;
+            color: #1e3d53;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .tip-block ul {
+            list-style: none;
+            padding: 0;
+        }
+        .tip-block li {
+            padding: 0.2rem 0;
+            color: #2f4b5d;
+            font-size: 0.95rem;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+        .tip-block li::before {
+            content: "·";
+            position: absolute;
+            left: 0;
+            color: #71899b;
+            font-weight: bold;
+        }
+        .faq-mini {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 1.5rem 2rem;
+            flex: 1.6 1 200px;
+            border: 1px solid #dfe6ed;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .faq-mini h4 {
+            font-weight: 470;
+            font-size: 1.2rem;
+            color: #1e3d53;
+            margin-bottom: 0.6rem;
+        }
+        .faq-mini .qa {
+            margin-bottom: 0.5rem;
+        }
+        .faq-mini .qa strong {
+            font-weight: 500;
+            color: #1d364a;
+            display: block;
+        }
+        .faq-mini .qa span {
+            color: #3a5b70;
+            font-size: 0.92rem;
+        }
+        /* 页尾提示 */
+        .footer-note {
+            border-top: 1px solid #dae2e9;
+            margin-top: 0.8rem;
+            padding: 2rem 0 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 0.95rem;
+            color: #3d5a6b;
+        }
+        .footer-note a {
+            color: #1f4b6b;
+            text-decoration: none;
+            font-weight: 470;
+            border-bottom: 1px dotted #9bb5c9;
+            transition: border 0.15s;
+        }
+        .footer-note a:hover {
+            border-bottom: 1px solid #1f4b6b;
+        }
+        .footer-note .right {
+            text-align: right;
+        }
+        @media (max-width: 640px) {
+            body {
+                padding: 1.2rem 0.8rem;
+            }
+            .hero {
+                padding: 1.6rem 1.4rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero .sub {
+                max-width: 100%;
+                font-size: 1rem;
+            }
+            .bg-card, .tip-block, .faq-mini {
+                padding: 1.4rem 1.4rem;
+            }
+            .features-grid {
+                gap: 1rem;
+            }
+            .feature-card {
+                padding: 1.4rem 1.2rem;
+                min-width: 140px;
+            }
+            .footer-note {
+                flex-direction: column;
+                gap: 0.4rem;
+            }
+            .footer-note .right {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <!-- Hero 横幅 -->
+    <div class="hero">
+        <h1>英超直播 · 周末指南</h1>
+        <div class="sub">从赛前准备到实时观看，一场关于节奏与细节的简单对话。</div>
+    </div>
+
+    <!-- 背景说明卡 -->
+    <div class="bg-card">
+        <h2>⚽ 从球场到屏幕</h2>
+        <p>英超每个赛季都带来超过三百场对决，转播信号跨越时区，抵达无数客厅与移动端。对许多球迷来说，周末最放松的时刻，就是找一个合适的入口，打开一场直播，暂时放下手头的事情。</p>
+        <p>我们日常聊到的「<strong>英超直播</strong>」，其实不只是链接或平台，更像是一个习惯 — 知道几点开球，哪个频道或页面稳定，不卡顿、不延迟太多，就足够让人安心。很多朋友慢慢养成了固定的路线：先看一眼赛程，再找到熟悉的地方，泡杯茶，比赛刚好开始。</p>
+        <div class="small-note">👟 保持简单，往往比追逐更多功能更舒适</div>
+    </div>
+
+    <!-- 三段介绍卡片 -->
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>赛前 · 心中有数</h3>
+            <p>确认开球时间、主客队近况、首发名单——提前花两分钟扫一眼，能让整场观赛体验更连贯。很多朋友习惯在赛前十五分钟打开页面，让画面先缓冲稳定。</p>
+            <div class="tag">📋 赛程备忘</div>
+        </div>
+        <div class="feature-card">
+            <h3>直播 · 稳定优先</h3>
+            <p>流畅比画质更重要。选择一个靠谱的直播来源，比反复切换链接更省心。不少球迷的经验是：尽量避开高峰前最后一秒才进场，提前几分钟到位，画面会更顺。</p>
+            <div class="tag">📡 信号建议</div>
+        </div>
+        <div class="feature-card">
+            <h3>赛后 · 回味讨论</h3>
+            <p>集锦、数据、战术分析……比赛结束后，和朋友聊聊某个进球或扑救，也是直播的一部分。好的直播页面往往也提供赛后回顾入口，方便补看关键片段。</p>
+            <div class="tag">📊 延伸内容</div>
+        </div>
+    </div>
+
+    <!-- 提示 & FAQ 摘要 -->
+    <div class="tip-area">
+        <div class="tip-block">
+            <h4>📌 访问提示</h4>
+            <ul>
+                <li>建议使用桌面浏览器或平板观看，稳定性更好</li>
+                <li>部分直播页面需要关闭广告拦截插件才能正常加载</li>
+                <li>遇到卡顿先刷新一次，不要反复点击播放按钮</li>
+                <li>深夜场次可提前调整音量，避免吵到家人</li>
+            </ul>
+        </div>
+        <div class="faq-mini">
+            <h4>❓ 常见疑问</h4>
+            <div class="qa">
+                <strong>哪里可以找到稳定的直播？</strong>
+                <span>很多球迷会直接收藏常用的站点，比如 <a href="https://official-epl.com" style="color:#1f4b6b; text-decoration:underline; text-underline-offset:2px; border-bottom:none;">英超直播</a> 专区，信息比较集中。</span>
+            </div>
+            <div class="qa">
+                <strong>手机能看吗？</strong>
+                <span>大部分直播页面适配移动端，但横屏体验更接近电视效果。</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页尾提示 + 链接 -->
+    <div class="footer-note">
+        <div class="left">
+            <span>基于日常观赛习惯整理 · 内容仅作参考</span>
+        </div>
+        <div class="right">
+            <span>若想直接进入直播页面，可访问 </span>
+            <a href="https://official-epl.com">英超直播</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
